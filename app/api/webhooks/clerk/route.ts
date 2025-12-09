@@ -90,7 +90,7 @@ export async function POST(req: Request) {
       case "user.deleted": {
         const userId: string = data.id;
         const { error } = await supabaseAdmin
-          .from("profiles")
+          .from("Profiles")
           .delete()
           .eq("id", userId);
         if (error) {
