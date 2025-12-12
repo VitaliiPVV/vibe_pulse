@@ -1,8 +1,7 @@
 const Dashboard = () => {
   return (
-    <div className="min-h-screen">
-      <main className="min-h-screen w-full">
-      </main>
+    <div className="min-h-screen p-6">
+      <h1 className="text-2xl font-semibold mb-4">Dashboard</h1>
     </div>
   );
 };
