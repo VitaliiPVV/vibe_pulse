@@ -5,7 +5,9 @@ import { LINKS } from "./consts";
 const Header = () => {
   return (
     <header className="w-full border-b py-3 px-4 md:px-12 lg:px-20 flex items-center justify-between">
-      <div>Logo</div>
+      <Link href='/dashboard' className="cursor-pointer">
+        <div>Logo</div>
+      </Link>
 
       <div className="flex gap-3 text-black">
         {LINKS.map((item) => (
