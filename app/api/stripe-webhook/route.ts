@@ -37,7 +37,7 @@ export async function POST(req: Request) {
     const subscriptionId = session.subscription as string;
 
     if (!clerkUserId || !subscriptionId) {
-      console.error("Missing clerkUserId or subscriptionId");
+      console.error("❌ Missing clerkUserId or subscriptionId in checkout.session.completed");
       return NextResponse.json({ received: true });
     }
 
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
     const price = subscription.items.data[0]?.price;
     const s: any = subscription;
 
-    await supabase.from("subscriptions").upsert({
+    const { data, error } = await supabase.from("subscriptions").upsert({
       clerk_user_id: clerkUserId,
       stripe_customer_id: s.customer as string,
       stripe_subscription_id: s.id,
@@ -67,6 +67,10 @@ export async function POST(req: Request) {
       cancel_at_period_end: s.cancel_at_period_end,
       trial_end: s.trial_end ? new Date(s.trial_end * 1000) : null,
     });
+
+    if (error) {
+      return new Response("Supabase error", { status: 500 });
+    }
   }
 
   if (event.type === "customer.subscription.updated") {
@@ -75,7 +79,7 @@ export async function POST(req: Request) {
     const price = subscription.items.data[0]?.price;
     const s: any = subscription;
 
-    await supabase
+    const { data, error } = await supabase
       .from("subscriptions")
       .update({
         status: s.status,
@@ -93,18 +97,26 @@ export async function POST(req: Request) {
         price_interval: price?.recurring?.interval ?? null,
       })
       .eq("stripe_subscription_id", s.id);
+
+    if (error) {
+      return new Response("Supabase error", { status: 500 });
+    }
   }
 
   if (event.type === "customer.subscription.deleted") {
     const subscription = event.data.object as Stripe.Subscription;
 
-    await supabase
+    const { data, error } = await supabase
       .from("subscriptions")
       .update({
         status: "canceled",
         canceled_at: new Date(),
       })
       .eq("stripe_subscription_id", subscription.id);
+
+    if (error) {
+      return new Response("Supabase error", { status: 500 });
+    }
   }
 
   return NextResponse.json({ received: true });
