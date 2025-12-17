@@ -1,12 +1,21 @@
 import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { LINKS } from "./consts";
+import Image from "next/image";
+import logo from '@/public/VibePulseLogo.webp';
 
 const Header = () => {
   return (
     <header className="w-full border-b py-3 px-4 md:px-12 lg:px-20 flex items-center justify-between">
-      <Link href='/dashboard' className="cursor-pointer">
-        <div>Logo</div>
+      <Link href='/journal' className="cursor-pointer">
+        <div className="w-12">
+          <Image
+            src={logo}
+            alt="logo"
+            width={70}
+            height={45}
+          />
+        </div>
       </Link>
 
       <div className="flex gap-3 text-black">
