@@ -31,3 +31,18 @@ export async function getUserSubscription(clerkUserId: string) {
 
   return data;
 }
+
+export async function getUserProfileData(clerkUserId: string) {
+  const { data, error } = await supabaseAdmin
+    .from("Profiles")
+    .select("*")
+    .eq("id", clerkUserId)
+    .maybeSingle();
+
+  if (error) {
+    console.error("Supabase getUserProfileData error:", error);
+    return null;
+  }
+
+  return data;
+}
