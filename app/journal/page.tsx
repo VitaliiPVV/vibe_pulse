@@ -16,8 +16,6 @@ export default async function Journal() {
     }
   }
 
-  console.log(isTrialEnded())
-
   return (
     <main className="container mx-auto px-4 py-16 max-w-4xl">
       <div className="mb-8">
