@@ -10,6 +10,7 @@ import { Entries } from "../Entries";
 import { Filters } from "../Filters";
 import { Stats } from "../Stats";
 import { Charts } from "../Charts";
+import { Reflection } from "../Reflection";
 
 interface ContentProps {
   hasSubscription: boolean;
@@ -124,6 +125,7 @@ const Content = ({ hasSubscription }: ContentProps) => {
           />
           <Charts moodData={moodData} stressData={stressData} />
           <Entries filteredEntries={filteredEntries} />
+          <Reflection entries={entries} />
         </>
       ) : (
         <>
