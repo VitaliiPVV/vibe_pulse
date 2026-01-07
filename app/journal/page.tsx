@@ -3,11 +3,16 @@ import { currentUser } from "@clerk/nextjs/server";
 import { JournalEntry } from "./components";
 import { Button, Card } from "@/components/ui";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function Journal() {
   const user = await currentUser();
   const subscription = user && await getUserSubscription(user.id);
   const profileData = user && await getUserProfileData(user.id);
+
+  if (!user) {
+    redirect("/sign-in");
+  }
 
   const isTrialEnded = () => {
     const now = new Date();
