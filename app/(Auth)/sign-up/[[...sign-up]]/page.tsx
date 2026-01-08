@@ -5,8 +5,6 @@ export default function Page() {
     <div className="flex min-h-screen items-center justify-center">
       <SignUp
         signInUrl="/sign-in"
-        afterSignUpUrl="/journal"
-        afterSignInUrl="/journal"
         appearance={{
           layout: {
             unsafe_disableDevelopmentModeWarnings: true,
