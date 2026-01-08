@@ -26,7 +26,13 @@ const Header = () => {
         ))}
       </div>
 
-      <UserButton />
+      <UserButton
+        appearance={{
+          layout: {
+            unsafe_disableDevelopmentModeWarnings: true,
+          },
+        }}
+      />
     </header>
   );
 };
